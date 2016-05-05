@@ -42,7 +42,7 @@ import android.view.ViewGroup;
 import net.moltendorf.android.recyclerviewadapter.RecyclerViewAdapter;
 
 public class ExampleViewHolder extends RecyclerViewAdapter.ViewHolder<ExampleData> {
-  public SpecialViewHolder(Context context, ViewGroup viewGroup) {
+  public ExampleViewHolder(Context context, ViewGroup viewGroup) {
     super(context, viewGroup, android.R.layout.simple_list_item_1);
   }
 
