@@ -11,7 +11,7 @@ This project is mostly proof of concept and updates may include breaking changes
 
 This project currently uses Git for distribution, so you'll need JitPack.
  
-```
+```gradle
 repositories {
   maven { url 'https://jitpack.io' }
 }
@@ -19,7 +19,7 @@ repositories {
 
 Then just add this dependency to your project.
 
-```
+```gradle
 dependencies {
   compile 'com.github.moltendorf:RecyclerViewAdapter:0.3'
 }
@@ -27,13 +27,13 @@ dependencies {
 
 Now you can import the class anywhere in your project.
  
-``` 
+```java 
 import net.moltendorf.android.recyclerviewadapter.RecyclerViewAdapter;
 ```
 
 Create your view holders and data models.
 
-```
+```java
 package com.example;
 
 import android.content.Context;
@@ -71,7 +71,7 @@ public class ExampleData {
 
 Then just create a new RecyclerViewAdapter and bind your view holders to it.
 
-```
+```java
 // Create some example data.
 List exampleList = new ArrayList(1);
 exampleList.add(new ExampleData());
