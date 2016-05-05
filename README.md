@@ -7,6 +7,80 @@ RecyclerViewAdapter
 
 This project is mostly proof of concept and updates may include breaking changes.
 
+## Usage
+
+This project currently uses Git for distribution, so you'll need JitPack.
+ 
+```
+repositories {
+  maven { url 'https://jitpack.io' }
+}
+```
+
+Then just add this dependency to your project.
+
+```
+dependencies {
+  compile 'com.github.moltendorf:RecyclerViewAdapter:0.3'
+}
+```
+
+Now you can import the class anywhere in your project.
+ 
+``` 
+import net.moltendorf.android.recyclerviewadapter.RecyclerViewAdapter;
+```
+
+Create your view holders and data models.
+
+```
+package com.example;
+
+import android.content.Context;
+import android.view.ViewGroup;
+
+import net.moltendorf.android.recyclerviewadapter.RecyclerViewAdapter;
+
+public class ExampleViewHolder extends RecyclerViewAdapter.ViewHolder<ExampleData> {
+  public SpecialViewHolder(Context context, ViewGroup viewGroup) {
+    super(context, viewGroup, android.R.layout.simple_list_item_1);
+  }
+
+  @Override
+  public void bindTo(ExampleData exampleData, int position) {
+    ((TextView) itemView).setText(exampleData.getText());
+  }
+
+  public static class Factory extends RecyclerViewAdapter.Factory<ExampleViewHolder> {
+    @Override
+    public ExampleViewHolder createViewHolder(Context context, ViewGroup parent) {
+      return new ExampleViewHolder(context, parent);
+    }
+  }
+}
+
+public class ExampleData {
+  private String text = "Example Text";
+  
+  public String getText() {
+    return text;
+  }
+}
+
+```
+
+Then just create a new RecyclerViewAdapter and bind your view holders to it.
+
+```
+// Create some example data.
+List exampleList = new ArrayList(1);
+exampleList.add(new ExampleData());
+
+RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext());
+adapter.setViewHolders(ExampleViewHolder.class);
+adapter.changeDataSet(exampleList);
+```
+
 ## Code Style
 
 This project is indented with 2 spaces and wraps after the 128th column for all code files. All files must end with a newline.
