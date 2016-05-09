@@ -47,8 +47,8 @@ public class ExampleViewHolder extends RecyclerViewAdapter.ViewHolder<ExampleDat
   }
 
   @Override
-  public void bindTo(ExampleData exampleData, int position) {
-    ((TextView) itemView).setText(exampleData.getText());
+  public void bindTo() {
+    ((TextView) itemView).setText(object.getText());
   }
 
   public static class Factory extends RecyclerViewAdapter.Factory<ExampleViewHolder> {
