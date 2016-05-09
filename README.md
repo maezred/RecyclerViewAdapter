@@ -21,7 +21,7 @@ Then just add this dependency to your project.
 
 ```gradle
 dependencies {
-  compile 'com.github.moltendorf:RecyclerViewAdapter:0.3'
+  compile 'com.github.moltendorf:RecyclerViewAdapter:0.4'
 }
 ```
 
