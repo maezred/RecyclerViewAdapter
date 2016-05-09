@@ -57,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.onBindTo(dataSet.get(position), position);
+    holder.bindTo(dataSet.get(position), position);
   }
 
   @Override
@@ -109,7 +109,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     notifyDataSetChanged();
   }
 
-  public static abstract class Factory<T extends ViewHolder> {
+  abstract public static class Factory<T extends ViewHolder> {
     private Class<?> dataClass;
 
     public Factory() {
@@ -144,8 +144,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     abstract public T createViewHolder(Context context, ViewGroup parent);
   }
 
-  public static abstract class ViewHolder<T> extends RecyclerView.ViewHolder {
+  abstract public static class ViewHolder<T> extends RecyclerView.ViewHolder {
     protected Context context;
+    protected T object;
+    protected int position;
 
     public ViewHolder(Context context, ViewGroup viewGroup, int resource) {
       super(LayoutInflater.from(context).inflate(resource, viewGroup, false));
@@ -153,10 +155,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       this.context = context;
     }
 
-    private void onBindTo(Object object, int position) {
-      bindTo((T) object, position);
+    private void bindTo(Object object, int position) {
+      this.object = (T) object;
+      this.position = position;
+
+      bindTo();
     }
 
-    abstract public void bindTo(T object, int position);
+    abstract public void bindTo();
   }
 }
