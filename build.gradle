@@ -1,11 +1,17 @@
 buildscript {
+    ext.kotlin_version = '1.0.1-2'
+
     repositories {
         mavenCentral()
     }
+
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.android.tools.build:gradle:2.1.0'
     }
 }
+
+apply plugin: 'kotlin'
 
 ext {
     minSdkVersion = 16
