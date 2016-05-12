@@ -5,14 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * More generic implementation of RecyclerView.
@@ -52,7 +49,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return viewHolderLookup[viewType].createViewHolder(context, parent);
+    Factory factory = viewHolderLookup[viewType];
+    ViewHolder viewHolder = factory.createViewHolder(context, parent);
+
+    factory.subject.onNext(viewHolder);
+    return viewHolder;
   }
 
   @Override
@@ -111,6 +112,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
   abstract public static class Factory<T extends ViewHolder> {
     private Class<?> dataClass;
+    private PublishSubject<T> subject = PublishSubject.create();
 
     public Factory() {
       Class<?> viewHolderClass = (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -119,6 +121,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public Class<?> getDataClass() {
       return dataClass;
+    }
+
+    public Observable<T> created() {
+      return subject;
     }
 
     @Override
