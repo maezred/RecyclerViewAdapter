@@ -5,9 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.jakewharton.rxbinding.view.RxView;
 import rx.Observable;
-import rx.functions.Func1;
 import rx.subjects.PublishSubject;
 
 import java.lang.reflect.ParameterizedType;
@@ -117,23 +115,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     protected Context context;
     protected T object;
     protected int position;
-    private Observable<T> clicks;
 
     public ViewHolder(Context context, ViewGroup viewGroup, int resource) {
       super(LayoutInflater.from(context).inflate(resource, viewGroup, false));
 
       this.context = context;
-
-      clicks = RxView.clicks(itemView).map(new Func1<Void, T>() {
-        @Override
-        public T call(Void aVoid) {
-          return object;
-        }
-      });
-    }
-
-    public Observable<T> clicks() {
-      return clicks;
     }
 
     private void bindTo(Object object, int position) {
@@ -144,7 +130,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     abstract public void bindTo();
-
   }
 
   abstract public static class Factory<T extends ViewHolder> {
