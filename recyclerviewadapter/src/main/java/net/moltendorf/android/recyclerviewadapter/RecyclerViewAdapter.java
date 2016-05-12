@@ -2,7 +2,6 @@ package net.moltendorf.android.recyclerviewadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import rx.Observable;
@@ -33,8 +32,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   }
 
   public RecyclerViewAdapter(Context context, Set<Factory> factories, List dataSet) {
-    Log.d(TAG, "PlacesListAdapter: Called.");
-
     this.context = context;
     this.dataSet = dataSet;
 
