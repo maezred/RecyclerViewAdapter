@@ -112,6 +112,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     notifyDataSetChanged();
   }
 
+  abstract public static class ViewHolder<T> extends RecyclerView.ViewHolder {
+
+    protected Context context;
+    protected T object;
+    protected int position;
+    private Observable<T> clicks;
+
+    public ViewHolder(Context context, ViewGroup viewGroup, int resource) {
+      super(LayoutInflater.from(context).inflate(resource, viewGroup, false));
+
+      this.context = context;
+
+      clicks = RxView.clicks(itemView).map(new Func1<Void, T>() {
+        @Override
+        public T call(Void aVoid) {
+          return object;
+        }
+      });
+    }
+
+    public Observable<T> clicks() {
+      return clicks;
+    }
+
+    private void bindTo(Object object, int position) {
+      this.object = (T) object;
+      this.position = position;
+
+      bindTo();
+    }
+
+    abstract public void bindTo();
+
+  }
+
   abstract public static class Factory<T extends ViewHolder> {
     private Class<?> dataClass;
     private PublishSubject<T> subject = PublishSubject.create();
@@ -150,39 +185,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     abstract public T createViewHolder(Context context, ViewGroup parent);
-  }
-
-  abstract public static class ViewHolder<T> extends RecyclerView.ViewHolder {
-    protected Context context;
-    protected T object;
-    protected int position;
-
-    private Observable<T> clicks;
-
-    public ViewHolder(Context context, ViewGroup viewGroup, int resource) {
-      super(LayoutInflater.from(context).inflate(resource, viewGroup, false));
-
-      this.context = context;
-
-      clicks = RxView.clicks(itemView).map(new Func1<Void, T>() {
-        @Override
-        public T call(Void aVoid) {
-          return object;
-        }
-      });
-    }
-
-    public Observable<T> clicks() {
-      return clicks;
-    }
-
-    private void bindTo(Object object, int position) {
-      this.object = (T) object;
-      this.position = position;
-
-      bindTo();
-    }
-
-    abstract public void bindTo();
   }
 }
