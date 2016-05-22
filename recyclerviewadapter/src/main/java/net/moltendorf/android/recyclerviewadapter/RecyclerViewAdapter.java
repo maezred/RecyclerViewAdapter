@@ -15,7 +15,7 @@ import java.util.*;
  * Can be used in various ways with minimal, if any, extension required.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-  private static final String TAG = "PlacesListAdapter";
+  private static final String TAG = "RecyclerViewAdapter";
 
   private Context context;
   private List dataSet;
