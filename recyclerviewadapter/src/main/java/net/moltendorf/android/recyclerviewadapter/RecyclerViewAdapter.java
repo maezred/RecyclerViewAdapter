@@ -41,7 +41,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   @Override
   public int getItemViewType(int position) {
     // Todo: add more helpful exception when no class to resource relationship exists.
-    return viewTypeLookup.get(dataSet.get(position).getClass());
+    try {
+      return viewTypeLookup.get(dataSet.get(position).getClass());
+    } catch (Exception exception) {
+      throw new RuntimeException("Unable to find view type for " + dataSet.get(position).getClass().getName(), exception);
+    }
   }
 
   @Override
