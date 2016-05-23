@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'com.android.library'
 
 group 'net.moltendorf.android'
-version '0.6.3-SNAPSHOT'
+version '0.6.4-SNAPSHOT'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
