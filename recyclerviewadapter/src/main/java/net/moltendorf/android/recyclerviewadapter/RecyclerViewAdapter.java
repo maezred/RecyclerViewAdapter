@@ -112,10 +112,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
   }
 
   abstract public static class ViewHolder<T> extends RecyclerView.ViewHolder {
-
     protected Context context;
     protected T object;
-    protected int position;
+    protected int row;
 
     public ViewHolder(Context context, ViewGroup viewGroup, int resource) {
       super(LayoutInflater.from(context).inflate(resource, viewGroup, false));
@@ -123,9 +122,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
       this.context = context;
     }
 
-    private void bindTo(Object object, int position) {
+    public T getObject() {
+      return object;
+    }
+
+    public int getRow() {
+      return row;
+    }
+
+    private void bindTo(Object object, int row) {
       this.object = (T) object;
-      this.position = position;
+      this.row = row;
 
       bindTo();
     }
